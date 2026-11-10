@@ -1,0 +1,558 @@
+/* Desktop app shell shared by Admin and the main web app: sign-in card, sidebar layout, page
+   chrome, cards, modal. Import after styles.css. */
+
+:root {
+  --sidebar-w: 240px;
+}
+
+/* ─── Sign in ─────────────────────────────────────────────────────────────── */
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* From the top rather than centred: a message appearing under the button then can't move what's above it. */
+  justify-content: flex-start;
+  gap: 28px;
+  min-height: 100%;
+  padding: clamp(32px, 10vh, 96px) 20px 32px;
+}
+
+.auth-logo {
+  height: 52px;
+  width: auto;
+}
+
+.auth-logo-link,
+.mobile-bar-home {
+  display: inline-flex;
+  border-radius: 6px;
+}
+
+.auth-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 400px;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* On a phone the fields get the width back: 32px each side left them about 254px wide on a 360px screen. */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 24px 20px;
+  }
+}
+
+.auth-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.auth-sub {
+  margin-top: 4px;
+  color: var(--ink-2);
+}
+
+.auth-card .btn-block {
+  margin-top: 4px;
+}
+
+.auth-foot {
+  max-width: 400px;
+  font-size: var(--text-md);
+  text-align: center;
+  color: var(--ink-2);
+}
+
+.gate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 100%;
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.gate-logo {
+  height: 48px;
+  width: auto;
+  margin-bottom: 16px;
+}
+
+.gate-title {
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.gate-text {
+  max-width: 380px;
+  margin-bottom: 12px;
+  color: var(--ink-2);
+}
+
+/* ─── Layout ──────────────────────────────────────────────────────────────── */
+
+.layout {
+  display: flex;
+  min-height: 100%;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-w);
+  height: 100vh;
+  /* The visible height: on phones 100vh runs under the browser's toolbar. */
+  height: 100dvh;
+  padding: 20px 12px 12px;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px 20px;
+  color: inherit;
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.brand img {
+  height: 34px;
+  width: auto;
+}
+
+.brand span,
+.tag {
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--sunken);
+  color: var(--ink-2);
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.nav-link:hover {
+  text-decoration: none;
+  background: var(--sunken);
+  color: var(--ink);
+}
+
+.nav-link.is-active {
+  background: var(--sunken);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.nav-link .tag {
+  margin-left: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.nav-count {
+  margin-left: auto;
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-align: center;
+  background: var(--ink);
+  color: #fff;
+}
+
+.sidebar-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 6px 0;
+  border-top: 1px solid var(--line);
+}
+
+.sidebar-account {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 8px;
+  color: var(--ink);
+}
+
+.sidebar-account:hover,
+.sidebar-account.is-active {
+  background: var(--sunken);
+  text-decoration: none;
+}
+
+.sidebar-account:hover .avatar,
+.sidebar-account.is-active .avatar {
+  background: var(--surface);
+}
+
+.sidebar-user {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  color: inherit;
+}
+
+.avatar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  background: var(--sunken);
+  color: var(--ink-2);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-bar,
+.scrim {
+  display: none;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 1160px;
+  padding: 32px 32px 20px;
+}
+
+.page-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.page-sub {
+  margin-top: 4px;
+  color: var(--ink-2);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1160px;
+  padding: 0 32px 48px;
+}
+
+/* ─── Cards and controls ──────────────────────────────────────────────────── */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.card-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius);
+  background: var(--sunken);
+}
+
+.segmented button {
+  height: 32px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.segmented button:hover {
+  color: var(--ink);
+}
+
+/* Filled dark: white on the light grey track was 1.14:1, too close to see which one is chosen. */
+.segmented button.is-active {
+  background: var(--ink);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  padding: 56px 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.hint-bad {
+  color: var(--bad);
+}
+
+.facts {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.facts > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 14px;
+}
+
+.facts > div + div {
+  border-top: 1px solid var(--line);
+}
+
+.facts dt {
+  color: var(--ink-2);
+}
+
+.facts dd {
+  font-weight: 600;
+  text-align: right;
+}
+
+.note {
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: var(--canvas);
+}
+
+.note-label {
+  margin-bottom: 2px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+/* ─── Modal ───────────────────────────────────────────────────────────────── */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(14, 19, 32, 0.45);
+  overflow-y: auto;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 40px);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Focus lands on the dialog itself when nothing inside takes it; the title says where it is. */
+.modal:focus {
+  outline: none;
+}
+
+.modal-lg {
+  max-width: 860px;
+}
+
+.modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 20px 0 24px;
+}
+
+.modal-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+.modal-desc {
+  margin-top: 2px;
+  color: var(--ink-2);
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+.modal-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--line);
+}
+
+.modal-note {
+  color: var(--ink-2);
+}
+
+/* ─── Small screens ───────────────────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .mobile-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 56px;
+    padding: 0 12px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-bar-logo {
+    height: 30px;
+    width: auto;
+  }
+
+  /* Closed, the drawer is hidden as well as moved off-screen, so Tab and screen readers skip it. */
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    /* Top to bottom of what's on screen, so Account and Sign out stay above the toolbar. */
+    height: auto;
+    z-index: 40;
+    visibility: hidden;
+    transform: translateX(-100%);
+    transition:
+      transform 0.2s ease-out,
+      visibility 0s 0.2s;
+  }
+
+  .sidebar.is-open {
+    visibility: visible;
+    transform: none;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.2s ease-out;
+  }
+
+  .scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgba(14, 19, 32, 0.45);
+  }
+
+  .page-header {
+    padding: 24px 16px 16px;
+  }
+
+  .content {
+    padding: 0 16px 40px;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,1846 @@
+/* Main app pieces. Tokens come from @glazion/ui/styles.css, the layout from @glazion/ui/shell.css. */
+
+.auth-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -6px;
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.sample-note {
+  align-items: center;
+}
+
+.gate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.gate-note {
+  margin-top: 4px;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.content-wide {
+  max-width: 1320px;
+}
+
+.chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.chip:hover {
+  border-color: var(--ink-3);
+  color: var(--ink);
+}
+
+.chip.is-on {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+}
+
+/* A label, not a toggle: squarer, borderless and with no hover, so it doesn't invite a click. */
+.chip.is-static,
+.chip.is-static:hover {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 9px;
+  border-color: transparent;
+  border-radius: 6px;
+  background: var(--sunken);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  cursor: default;
+}
+
+.plain-list {
+  padding-left: 18px;
+}
+
+.plain-list li + li {
+  margin-top: 4px;
+}
+
+/* ─── Search ──────────────────────────────────────────────────────────────── */
+
+.search-layout {
+  display: grid;
+  grid-template-columns: 400px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.search-form {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  overflow: visible;
+}
+
+.search-form > .segmented {
+  align-self: flex-start;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rows-head,
+.rows-foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.rows-foot {
+  align-items: center;
+}
+
+.recipe-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recipe-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 84px 32px;
+  gap: 8px;
+  align-items: start;
+}
+
+.recipe-row .btn {
+  margin-top: 4px;
+}
+
+.recipe-row .amount {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.recipe-head {
+  margin-bottom: -4px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--bad);
+}
+
+.field-error {
+  font-size: var(--text-sm);
+  color: var(--bad);
+}
+
+.row-note {
+  grid-column: 1 / -1;
+  font-size: var(--text-sm);
+  color: var(--warn);
+}
+
+.row-note-wrap {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.row-note.field-error {
+  color: var(--bad);
+}
+
+.add-row {
+  align-self: flex-start;
+  margin-left: -4px;
+}
+
+.example-btn {
+  align-self: flex-start;
+  margin: -4px 0 0 -4px;
+}
+
+/* ─── Material picker ─────────────────────────────────────────────────────── */
+
+.picker {
+  position: relative;
+  min-width: 0;
+}
+
+.picker .input {
+  padding-right: 32px;
+}
+
+.picker-ok {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  color: var(--ok);
+  pointer-events: none;
+}
+
+.picker-hint {
+  margin-top: 4px;
+  font-size: var(--text-sm);
+  color: var(--warn);
+}
+
+.picker-menu {
+  position: absolute;
+  top: calc(var(--control-h) + 4px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.picker-menu ul {
+  max-height: 240px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 4px;
+}
+
+.picker-option {
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: var(--text-md);
+  cursor: pointer;
+}
+
+.picker-option.is-active {
+  background: var(--brand-soft);
+  box-shadow: inset 3px 0 0 var(--brand);
+}
+
+.picker-option.is-chosen {
+  font-weight: 600;
+}
+
+.picker-empty,
+.picker-more {
+  padding: 8px 12px;
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}
+
+.picker-more {
+  border-top: 1px solid var(--line);
+}
+
+/* ─── UMF calculator ──────────────────────────────────────────────────────── */
+
+.umf-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 500px);
+  gap: 24px;
+  align-items: start;
+}
+
+.umf-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* Like .card, but without clipping, so the material menu can overflow it. */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.panel-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.panel-sub {
+  margin-bottom: 10px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.recipe-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.menu-wrap {
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.menu button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-md);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu button:hover,
+.menu button:focus-visible {
+  background: var(--sunken);
+}
+
+.menu .hint {
+  font-weight: 400;
+}
+
+.menu-end {
+  right: 0;
+  left: auto;
+}
+
+.menu button.is-danger {
+  color: var(--bad);
+}
+
+.saved-undo {
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.saved-list {
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.saved-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 8px;
+}
+
+.saved-list li + li {
+  border-top: 1px solid var(--line);
+}
+
+.saved-list li.is-current {
+  background: var(--canvas);
+}
+
+.saved-open {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-size: var(--text-sm);
+}
+
+.saved-open strong {
+  font-size: var(--text-md);
+}
+
+.saved-open:hover strong {
+  color: var(--brand);
+}
+
+.umf-results {
+  position: sticky;
+  top: 16px;
+  gap: 20px;
+}
+
+.total-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--canvas);
+}
+
+.total-bar strong {
+  font-size: var(--text-lg);
+  font-variant-numeric: tabular-nums;
+}
+
+.total-bar strong.is-off {
+  color: var(--warn);
+}
+
+.total-bar > span {
+  white-space: nowrap;
+}
+
+.total-off {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--warn);
+}
+
+.total-bar .btn {
+  margin-left: auto;
+}
+
+.umf-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.umf-col h4 {
+  margin-bottom: 8px;
+  font-size: var(--text-md);
+  font-weight: 700;
+}
+
+.umf-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.umf-group + .umf-group {
+  margin-top: 12px;
+}
+
+.umf-group-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.kv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kv {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: var(--text-md);
+}
+
+.kv sub {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+.kv .num {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.kv-strong {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  font-weight: 600;
+}
+
+.suggest {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  list-style: none;
+}
+
+.suggest li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 12px;
+  border-left: 2px solid var(--line-strong);
+}
+
+.suggest-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: var(--text-md);
+}
+
+.in-recipe {
+  margin-left: 8px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.oxide-group + .oxide-group {
+  margin-top: 6px;
+}
+
+.oxide-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.oxide-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.oxide {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.oxide sub {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+.oxide .input {
+  padding: 0 8px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.readouts {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--canvas);
+}
+
+.readouts > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.readouts strong {
+  font-size: var(--text-lg);
+  font-variant-numeric: tabular-nums;
+}
+
+.readouts strong.is-off {
+  color: var(--warn);
+}
+
+.readouts .btn {
+  margin-left: auto;
+}
+
+.more summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+  cursor: pointer;
+  list-style: none;
+}
+
+.more summary::-webkit-details-marker {
+  display: none;
+}
+
+.more summary > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.more[open] summary > svg:last-child {
+  transform: rotate(180deg);
+}
+
+.more > :not(summary) {
+  margin-top: 8px;
+}
+
+.chips {
+  border: 0;
+}
+
+.chips legend {
+  margin-bottom: 6px;
+}
+
+.segmented-fill {
+  display: flex;
+}
+
+.segmented-fill button {
+  flex: 1;
+  padding: 0 8px;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  scroll-margin-top: 72px;
+}
+
+.results-wait {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.results-wait-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-md);
+  color: var(--ink-2);
+}
+
+.results-wait .closest-image {
+  height: auto;
+  border-radius: 0;
+}
+
+.results-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.results-count {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+  list-style: none;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+
+.result:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.result-thumb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background: var(--sunken);
+}
+
+.result-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.result-rank {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+}
+
+.result-flag {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-align: center;
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.result-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px;
+}
+
+.result-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.result-score strong {
+  font-size: var(--text-xl);
+  font-variant-numeric: tabular-nums;
+}
+
+.result-line {
+  font-size: var(--text-sm);
+}
+
+.searched {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.evidence {
+  /* About 75 characters a line. (Not ch: this font's 0 is far wider than its average letter.) */
+  max-width: 32em;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.result-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+}
+
+.result-image {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-self: start;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  background: var(--sunken);
+  overflow: hidden;
+}
+
+.result-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* On a photo shown smaller than its box because it's small: says why it isn't larger. */
+.photo-note {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink-2);
+}
+
+.result-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.score-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.score-big {
+  font-size: var(--text-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bar-row {
+  display: grid;
+  /* Wide enough for "Surface and colour" and "Not compared", so every row's bar lines up. */
+  grid-template-columns: 124px minmax(0, 1fr) 96px;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.bar-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--sunken);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--brand);
+}
+
+.bar-value {
+  white-space: nowrap;
+  text-align: right;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.feedback {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-md);
+}
+
+.ask-link {
+  align-self: flex-start;
+  margin-left: -12px;
+  color: var(--brand);
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-actions .ask-link {
+  margin-left: 0;
+}
+
+/* ─── Closest match, similar glazes, the recipe searched ──────────────────── */
+
+.closest {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.closest-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  background: var(--sunken);
+  color: var(--ink-3);
+}
+
+.closest-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.closest-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 20px;
+}
+
+.closest-body .result-score {
+  justify-content: flex-start;
+}
+
+.closest-body .result-score strong {
+  font-size: var(--text-2xl);
+}
+
+.closest-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.closest-title strong {
+  font-size: var(--text-lg);
+  line-height: 1.35;
+}
+
+/* A recipe's name can be long ("Zinc Pinc ∆10 · Lab 5b · Titanium Dioxide Ultrox"): two lines at most. */
+.result-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.tile-code-lg {
+  height: 30px;
+  padding: 0 10px;
+  font-size: var(--text-lg);
+}
+
+.closest-label {
+  font-weight: 500;
+}
+
+.closest-more {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.results-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.similar-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 172px;
+  gap: 12px;
+  padding-bottom: 6px;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x proximity;
+}
+
+.similar-strip > li {
+  scroll-snap-align: start;
+}
+
+/* These sit inside boxes that clip what's outside them, so their focus ring goes inside the edge. */
+.closest-image:focus-visible,
+.similar-strip .result:focus-visible {
+  outline-offset: -3px;
+}
+
+.similar-strip .result,
+.results .result {
+  height: 100%;
+}
+
+.result-body .tile-code {
+  align-self: flex-start;
+  margin-bottom: 4px;
+}
+
+.chem-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  padding: 16px 18px;
+}
+
+.chem-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chem-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+}
+
+.chem-list > div {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: var(--text-md);
+}
+
+.chem-list dt {
+  color: var(--ink-2);
+}
+
+.chem-list dd {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.chem-stains {
+  padding: 0 18px 16px;
+  font-size: var(--text-md);
+}
+
+.card-head + .chem-stains {
+  padding-top: 14px;
+}
+
+div.chem-stains {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.colorant-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+}
+
+.colorant-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.colorant-list strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.search-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.all-results > p.muted {
+  font-size: var(--text-sm);
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-md);
+  color: var(--ink-2);
+}
+
+.check input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--brand);
+}
+
+.check input:disabled + span {
+  color: var(--ink-3);
+}
+
+.check .hint {
+  margin-left: 4px;
+}
+
+/* The buttons bring their own top margin (.empty .btn). */
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 8px;
+}
+
+.recent-list {
+  list-style: none;
+}
+
+.recent-list li + li {
+  border-top: 1px solid var(--line);
+}
+
+.recent-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 18px;
+  color: var(--ink);
+}
+
+.recent-item:hover {
+  background: var(--canvas);
+}
+
+.recent-label {
+  font-weight: 600;
+}
+
+/* ─── Chat ────────────────────────────────────────────────────────────────── */
+
+.chat {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  height: 100vh;
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.chat-list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 16px 12px;
+}
+
+.chat-list-title {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.chat-list-empty {
+  padding: 8px 16px;
+  font-size: var(--text-md);
+  color: var(--ink-3);
+}
+
+.chat-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 8px 16px;
+  overflow-y: auto;
+}
+
+.chat-group + .chat-group {
+  margin-top: 10px;
+}
+
+.chat-group-title {
+  padding: 6px 10px 4px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.chat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.chat-item .muted {
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+
+.chat-item:hover {
+  text-decoration: none;
+  background: var(--sunken);
+}
+
+.chat-item.is-active {
+  background: var(--sunken);
+  font-weight: 600;
+}
+
+.chat-thread {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+}
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 56px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.chat-back {
+  display: none;
+}
+
+.chat-title {
+  flex: 1;
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.chat-head-actions {
+  display: flex;
+  gap: 2px;
+}
+
+.chat-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.chat-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 20px 8px;
+}
+
+.chat-welcome {
+  padding: 40px 0 8px;
+}
+
+.chat-welcome h2 {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.chat-welcome p {
+  margin-top: 6px;
+  max-width: 520px;
+  color: var(--ink-2);
+}
+
+.suggestions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.suggestion {
+  padding: 14px;
+  text-align: left;
+  font-weight: 500;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.12s;
+}
+
+.suggestion:hover {
+  border-color: var(--line-strong);
+}
+
+.msg {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msg-user {
+  align-items: flex-end;
+}
+
+.bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--ink);
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+.bubble > * + *,
+.answer > * + * {
+  margin-top: 10px;
+}
+
+.answer {
+  /* About 75 characters a line; the full column allowed 110. (Not ch: this font's 0 is far wider than
+     its average letter.) */
+  max-width: 32em;
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.answer ol,
+.answer ul,
+.bubble ol,
+.bubble ul {
+  padding-left: 22px;
+}
+
+.answer-heading {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.answer > * + .answer-heading {
+  margin-top: 16px;
+}
+
+.answer a {
+  color: var(--brand);
+  text-decoration: underline;
+}
+
+.bubble a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.answer li + li {
+  margin-top: 4px;
+}
+
+.tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.tool a {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.caveat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: var(--warn);
+}
+
+.sources summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+  cursor: pointer;
+  list-style: none;
+}
+
+.sources summary::-webkit-details-marker {
+  display: none;
+}
+
+.sources[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.sources ol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 12px 12px 12px 32px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-size: var(--text-sm);
+}
+
+.sources li strong {
+  display: block;
+}
+
+.sources li span {
+  color: var(--ink-2);
+}
+
+.msg-actions {
+  display: flex;
+  gap: 2px;
+  margin-left: -8px;
+  color: var(--ink-3);
+}
+
+.msg-actions .is-chosen {
+  color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.typing {
+  display: inline-flex;
+  gap: 5px;
+  padding: 6px 0;
+}
+
+.typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink-3);
+  animation: typing 1.2s ease-in-out infinite;
+}
+
+.typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.typing-note {
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}
+
+/* Read by screen readers, not shown. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 12px;
+}
+
+.composer-box {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 8px 8px 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  transition: border-color 0.12s, box-shadow 0.12s;
+}
+
+.composer-box:focus-within {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(2, 100, 216, 0.16);
+}
+
+.composer-box textarea {
+  flex: 1;
+  min-height: 40px;
+  padding: 9px 0;
+  border: 0;
+  outline: 0;
+  resize: none;
+  background: none;
+  font-size: var(--text-lg);
+  line-height: 1.45;
+}
+
+.composer-box .btn {
+  border-radius: 50%;
+}
+
+.composer-note {
+  font-size: var(--text-xs);
+  text-align: center;
+  color: var(--ink-3);
+}
+
+/* ─── UMF placeholder and account ─────────────────────────────────────────── */
+
+.soon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 560px;
+  padding: 28px;
+}
+
+.soon-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.soon-text {
+  color: var(--ink-2);
+}
+
+.soon .btn {
+  margin-top: 8px;
+}
+
+.account {
+  max-width: 480px;
+}
+
+.account-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar-lg {
+  width: 56px;
+  height: 56px;
+  font-size: var(--text-xl);
+}
+
+.account-name {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+/* ─── Small screens ───────────────────────────────────────────────────────── */
+
+/* Shown only when the analysis sits below the inputs. */
+.umf-peek {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .search-layout,
+  .umf-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .umf-peek {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    font-size: var(--text-sm);
+  }
+
+  .umf-peek-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .umf-peek strong {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .umf-peek .limit-over {
+    font-weight: 600;
+  }
+
+  .umf-peek .link-btn {
+    white-space: nowrap;
+  }
+
+  .search-form,
+  .umf-results {
+    position: static;
+  }
+}
+
+@media (max-width: 860px) {
+  /* Below the phone's top bar. */
+  .umf-peek {
+    top: 56px;
+  }
+
+  .umf-results {
+    scroll-margin-top: 64px;
+  }
+
+  /* Phones zoom into any field under 16px when it's tapped, and 14px is small to read there. */
+  body,
+  .input,
+  .select,
+  .textarea,
+  .composer-box textarea {
+    font-size: var(--text-lg);
+  }
+
+  .chat {
+    grid-template-columns: 1fr;
+    height: calc(100dvh - 56px);
+  }
+
+  .chat-list {
+    border-right: 0;
+  }
+
+  .chat.has-thread .chat-list,
+  .chat:not(.has-thread) .chat-thread {
+    display: none;
+  }
+
+  .chat-back {
+    display: inline-flex;
+  }
+
+  .chat-head {
+    padding: 0 8px;
+  }
+
+  .suggestions,
+  .closest,
+  .result-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .result-image img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .oxide-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ─── Touch screens ───────────────────────────────────────────────────────── */
+
+/* A fingertip needs about 44px to land reliably, with room between neighbours. */
+@media (pointer: coarse) {
+  :root {
+    --control-h: 44px;
+  }
+
+  .btn-sm,
+  .segmented button,
+  .chip:not(.is-static) {
+    height: 44px;
+  }
+
+  .btn-icon.btn-sm {
+    width: 44px;
+  }
+
+  .chips-row,
+  .chat-head-actions,
+  .msg-actions {
+    gap: 8px;
+  }
+
+  /* Lines the first 16px icon up with the answer's text again. */
+  .msg-actions {
+    margin-left: -14px;
+  }
+
+  .recipe-row {
+    grid-template-columns: minmax(0, 1fr) 84px 44px;
+  }
+
+  .recipe-row .btn {
+    margin-top: 0;
+  }
+
+  .picker-option {
+    padding-block: 12px;
+  }
+
+  .check,
+  .more summary,
+  .sources summary {
+    min-height: 44px;
+  }
+}
+
+/* ─── Backend material picker and calculator states ───────────────────────── */
+
+.picker-group {
+  padding: 8px 10px 4px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.picker-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.picker-name {
+  min-width: 0;
+}
+
+.picker-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+}
+
+.picker-empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.link-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--brand);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.row-note.is-skipped {
+  color: var(--bad);
+}
+
+.recipe-row.is-skipped .input {
+  border-color: var(--warn);
+}
+
+.limit {
+  margin-left: 8px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.limit-in {
+  color: var(--ok);
+}
+
+.limit-under,
+.limit-over {
+  color: var(--warn);
+}
+
+.umf-updating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  color: var(--ink-3);
+}
+
+.row-note .chips-row {
+  margin-top: 4px;
+  align-items: center;
+  color: var(--ink-2);
+}

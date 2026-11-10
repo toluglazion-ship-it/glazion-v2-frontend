@@ -1,0 +1,1491 @@
+/* Capture PWA layout. Tokens and primitives come from @glazion/ui/styles.css. */
+
+:root {
+  --control-h: 48px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-h: 60px;
+}
+
+body {
+  font-size: var(--text-lg);
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Capture is read at arm's length in a studio: field labels, hints and messages stay at 14px or more. */
+.label,
+.hint,
+.alert {
+  font-size: var(--text-md);
+}
+
+/* iOS zooms the page when a focused input is under 16px. */
+.input,
+.textarea,
+.select {
+  font-size: var(--text-lg);
+}
+
+.btn {
+  font-size: var(--text-lg);
+  border-radius: 12px;
+}
+
+/* Everything here is tapped with a thumb, so even small buttons get a full 44px. */
+.btn-sm {
+  height: 44px;
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--brand);
+}
+
+/* ─── Shell ───────────────────────────────────────────────────────────────── */
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--surface);
+}
+
+@media (min-width: 520px) {
+  .shell {
+    border-inline: 1px solid var(--line);
+  }
+}
+
+.page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 4px 20px 28px;
+}
+
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: calc(var(--safe-top) + 24px) 20px 16px;
+}
+
+.page-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.page-sub {
+  margin-top: 4px;
+  color: var(--ink-2);
+}
+
+.page-loading {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 64px 0;
+}
+
+.section-title {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: var(--text-md);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: calc(56px + var(--safe-top));
+  padding: var(--safe-top) 8px 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-title {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.topbar-spacer {
+  width: var(--control-h);
+}
+
+.topbar + .page {
+  padding-top: 20px;
+}
+
+.tabbar {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  height: calc(var(--tabbar-h) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.tab {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.tab:hover {
+  text-decoration: none;
+}
+
+.tab-icon {
+  position: relative;
+  display: grid;
+}
+
+.tab-count {
+  position: absolute;
+  top: -5px;
+  right: -11px;
+  min-width: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 17px;
+  text-align: center;
+  background: var(--brand);
+  color: #fff;
+}
+
+.tab.is-active {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* The current tab is marked by a bar as well as by colour. */
+.tab.is-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 30%;
+  right: 30%;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--ink);
+}
+
+/* Pressed states: on a phone there's no hover, so a tap shows it landed. */
+.tab:active {
+  background: var(--sunken);
+}
+
+.btn:active:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.btn-ghost:active:not(:disabled),
+.btn-secondary:active:not(:disabled) {
+  background: var(--sunken);
+  filter: none;
+}
+
+/* Sit above the tab bar instead of on top of it. */
+.toasts {
+  bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 12px);
+}
+
+.offline-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: calc(var(--safe-top) + 8px) 16px 8px;
+  font-size: var(--text-md);
+  font-weight: 600;
+  background: var(--ink);
+  color: #fff;
+}
+
+/* ─── Sign in ─────────────────────────────────────────────────────────────── */
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* From the top rather than centred: a message appearing under the button can't move what's above it. */
+  justify-content: flex-start;
+  min-height: 100dvh;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: calc(var(--safe-top) + 32px) 24px calc(var(--safe-bottom) + 32px);
+  background: var(--surface);
+  text-align: center;
+}
+
+body:has(.auth) {
+  background: var(--surface);
+}
+
+.auth-mark {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 20px;
+}
+
+.auth-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.auth-sub {
+  margin-top: 10px;
+  max-width: 300px;
+  color: var(--ink-2);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  margin-top: 32px;
+  text-align: left;
+}
+
+.field-error {
+  font-size: var(--text-md);
+  color: var(--bad);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--bad);
+}
+
+.auth-help {
+  display: flex;
+  justify-content: flex-end;
+  /* The link's 44px tap area overlaps the form's gaps, so it sits where the 21px text did. */
+  margin: -15px 0 -12px;
+}
+
+.auth-foot {
+  margin-top: 24px;
+  font-size: var(--text-md);
+  color: var(--ink-2);
+}
+
+/* ─── Full-screen states ──────────────────────────────────────────────────── */
+
+.splash,
+.notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 100dvh;
+  padding: 24px;
+  background: var(--surface);
+  text-align: center;
+}
+
+.notice {
+  gap: 8px;
+}
+
+.notice-title {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.notice-text {
+  max-width: 320px;
+  margin-bottom: 16px;
+  color: var(--ink-2);
+}
+
+/* ─── Lists ───────────────────────────────────────────────────────────────── */
+/* Your tasks: what to make, then photograph. Sent ones fold away under a count. */
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tasks-sent > summary {
+  padding: 6px 0;
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.tasks-sent[open] > summary {
+  margin-bottom: 8px;
+}
+
+.list {
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* Long recipe lists: a search box, then one list per base (P01-B1, P01-B2…). */
+.recipe-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recipe-group-title {
+  font-family: var(--mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.recipe-none {
+  padding: 8px 0;
+}
+
+.list li + li {
+  border-top: 1px solid var(--line);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 68px;
+  padding: 12px 14px;
+  color: inherit;
+}
+
+.row:hover {
+  text-decoration: none;
+  background: var(--canvas);
+}
+
+.row:active {
+  background: var(--sunken);
+}
+
+/* A row that isn't a link, such as a photo still waiting to upload. */
+.row-static,
+.row-static:hover,
+.row-static:active {
+  background: none;
+}
+
+.row-text.is-bad {
+  color: var(--bad);
+}
+
+.row-waiting {
+  align-items: flex-start;
+}
+
+/* The discard warning is read in full, never cut short. */
+.row-text.is-asking {
+  display: block;
+}
+
+.row-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Kept at the far end, away from Retry. */
+.row-discard {
+  margin-left: auto;
+}
+
+.row-icon,
+.thumb {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  background: var(--sunken);
+  color: var(--ink-2);
+  overflow: hidden;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.row-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row-title {
+  font-weight: 600;
+}
+
+.row-code {
+  align-self: flex-start;
+  margin-bottom: 2px;
+}
+
+.row-text {
+  font-size: var(--text-md);
+  color: var(--ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.row-chevron {
+  flex-shrink: 0;
+  color: var(--ink-3);
+}
+
+/* A task row's name opens its recipe. */
+.row-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: inherit;
+}
+
+.row-link:hover {
+  text-decoration: none;
+}
+
+/* ─── A tile's recipe: base, colorants, swipe to the next ────────────────── */
+
+.task-recipe {
+  touch-action: pan-y;
+  /* The tile slides past the edges without making the page scroll sideways. */
+  overflow-x: clip;
+}
+
+/* The tile on screen: it follows the finger (TaskRecipePage), and the next one slides in from where it came. */
+.task-recipe-slide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  will-change: transform;
+}
+
+.task-recipe-slide.is-entering-next {
+  animation: tile-in-from-right 220ms ease-out;
+}
+
+.task-recipe-slide.is-entering-prev {
+  animation: tile-in-from-left 220ms ease-out;
+}
+
+@keyframes tile-in-from-right {
+  from {
+    transform: translateX(40%);
+    opacity: 0;
+  }
+}
+
+@keyframes tile-in-from-left {
+  from {
+    transform: translateX(-40%);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .task-recipe-slide.is-entering-next,
+  .task-recipe-slide.is-entering-prev {
+    animation: none;
+  }
+}
+
+.task-recipe-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.task-recipe-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.task-recipe-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.task-recipe-note p {
+  margin-top: 4px;
+}
+
+.recipe-rows {
+  width: 100%;
+  margin-top: 8px;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.recipe-rows td {
+  padding: 10px 14px;
+  border-top: 1px solid var(--line);
+}
+
+.recipe-rows tr:first-child td {
+  border-top: 0;
+}
+
+.recipe-rows .num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.recipe-rows .is-colorant td {
+  font-weight: 700;
+}
+
+.recipe-rows tfoot td {
+  font-weight: 700;
+  background: var(--canvas);
+}
+
+.recipe-kind {
+  margin-left: 8px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.task-recipe-whole > summary {
+  padding: 6px 0;
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.task-recipe-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.task-recipe-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: var(--text-sm);
+}
+
+.task-recipe-start {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--canvas);
+  color: var(--ink-2);
+}
+
+.task-recipe-status {
+  text-align: center;
+}
+
+/* Grows to fit its text ("Step 1 of 2") so it stays on screen; the title shortens with … instead. */
+.topbar-count {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: auto;
+  min-width: var(--control-h);
+  padding: 0 8px;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.submit-row {
+  cursor: pointer;
+}
+
+.submit-row input {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* ─── Home ────────────────────────────────────────────────────────────────── */
+
+.code-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  background: var(--canvas);
+  border: 1px solid var(--line);
+}
+
+.code-card-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.code-card-value {
+  margin-top: 2px;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.code-card-note {
+  margin-top: 2px;
+  font-size: var(--text-sm);
+  color: var(--ink-3);
+}
+
+.code-card-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-size: var(--text-sm);
+}
+
+/* ─── Capture ─────────────────────────────────────────────────────────────── */
+
+.capture-desc {
+  color: var(--ink-2);
+}
+
+.clay-body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.clay-body-label {
+  margin-bottom: 8px;
+  font-size: var(--text-md);
+  font-weight: 700;
+}
+
+.clay-body-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.clay-body-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--control-h);
+  padding: 0 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: var(--text-md);
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+
+.clay-body-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.clay-body-option.is-selected {
+  gap: 6px;
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.clay-body-option:has(input:focus-visible) {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.clay-body:disabled .clay-body-option {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.clay-body-hint {
+  margin-top: 6px;
+  font-size: var(--text-md);
+  color: var(--ink-2);
+}
+
+.capture-code {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: var(--text-md);
+  color: var(--ink-2);
+}
+
+.guide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 260px;
+  padding: 28px 20px;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--canvas);
+}
+
+.guide-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+}
+
+.guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  color: var(--ink-2);
+}
+
+.guide-list li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.guide-list li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink-3);
+}
+
+.preview {
+  flex: 1;
+  position: relative;
+  min-height: 260px;
+  border-radius: var(--radius-lg);
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.preview img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.preview figcaption {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  background: rgba(14, 19, 32, 0.72);
+  color: #fff;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.progress-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--sunken);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--ink);
+  transition: width 0.2s ease-out;
+}
+
+.capture-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: var(--safe-bottom);
+}
+
+.result {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.result-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 8px;
+  border-radius: 50%;
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.result-icon.is-waiting {
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+.result-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+.result-text {
+  max-width: 280px;
+  color: var(--ink-2);
+}
+
+.result .progress {
+  align-self: stretch;
+  margin-top: 16px;
+}
+
+/* ─── Upload detail and profile ───────────────────────────────────────────── */
+
+.detail-image {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  background: var(--sunken);
+  color: var(--ink-3);
+  overflow: hidden;
+}
+
+.detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.facts-recipe {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  text-align: right;
+}
+
+.detail-name {
+  min-width: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.facts {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.facts > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 50px;
+  padding: 10px 14px;
+}
+
+.facts > div + div {
+  border-top: 1px solid var(--line);
+}
+
+.facts dt {
+  flex-shrink: 0;
+  color: var(--ink-2);
+}
+
+.facts dd {
+  font-weight: 600;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 0 8px;
+}
+
+.avatar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  background: var(--ink);
+  color: #fff;
+}
+
+.profile-name {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+/* ─── Installing the app ──────────────────────────────────────────────────── */
+
+.install-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: var(--brand-soft);
+  border: 1px solid rgba(2, 100, 216, 0.18);
+}
+
+.install-card-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.install-app-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.install-card-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.install-card-text {
+  margin-top: 2px;
+  font-size: var(--text-md);
+  color: var(--ink-2);
+}
+
+.install-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.install-card-actions .btn-primary {
+  flex: 1;
+}
+
+.install-done {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: var(--text-md);
+  color: var(--ok);
+}
+
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(14, 19, 32, 0.45);
+}
+
+.sheet {
+  width: 100%;
+  max-width: 480px;
+  max-height: 92dvh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 10px 20px calc(var(--safe-bottom) + 20px);
+  border-radius: 20px 20px 0 0;
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.sheet-grip {
+  align-self: center;
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line-strong);
+}
+
+.sheet-title {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.sheet-note {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--canvas);
+  font-size: var(--text-md);
+  color: var(--ink-2);
+}
+
+.install-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.install-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.install-step-num {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--surface);
+  font-weight: 700;
+}
+
+.install-step-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 5px;
+}
+
+.install-step-title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.install-step-text {
+  font-size: var(--text-md);
+  color: var(--ink-2);
+}
+
+.install-step-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+
+/* ─── Snap by code ────────────────────────────────────────────────────────── */
+
+.snap-photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.snap-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.snap-slot-label {
+  font-size: var(--text-md);
+  font-weight: 700;
+}
+
+.snap-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  aspect-ratio: 1;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: var(--canvas);
+  color: var(--ink-2);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.snap-preview {
+  flex: none;
+  min-height: 0;
+  aspect-ratio: 1;
+}
+
+.snap-slot-actions {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 4px;
+}
+
+.snap-slot-actions .btn {
+  padding-inline: 6px;
+}
+
+.snap-recipe {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.snap-recipe-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.snap-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.snap-tile {
+  display: flex;
+  align-items: center;
+  min-height: var(--control-h);
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.snap-tile input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.snap-tile.is-selected {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.snap-tile.is-disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.snap-tile:has(input:focus-visible) {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.snap-tile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.snap-tile-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.snap-tile.is-selected .snap-tile-title {
+  color: var(--brand);
+}
+
+.snap-tile-text {
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
+
+.clay-body-hint.is-bad {
+  color: var(--bad);
+}
+
+.task-recipe-start svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+/* A note under the last list on a page. */
+.page-foot-hint {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* ─── Cup experiments ─────────────────────────────────────────────────────── */
+
+/* Every stage; each opens to what goes into every cup (meeting 2026-11-09). */
+.exp-stages {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 16px;
+  font-size: var(--text-sm);
+}
+
+.exp-stage {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink-3);
+}
+
+.exp-stage.is-current,
+.exp-stage.is-done {
+  color: var(--ink);
+}
+
+.exp-stage.is-current {
+  border-color: var(--ink);
+}
+
+.exp-stage > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 12px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.exp-stage > summary::-webkit-details-marker {
+  display: none;
+}
+
+.exp-stage > summary::after {
+  content: '▾';
+  color: var(--ink-3);
+  transition: transform 0.15s ease-out;
+}
+
+.exp-stage[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.exp-stage-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.exp-stage-state {
+  flex: none;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--ink-3);
+}
+
+.exp-stage.is-current .exp-stage-state {
+  color: var(--ink);
+}
+
+.exp-stage > .list {
+  border-top: 1px solid var(--line);
+}
+
+/* A cup's whole recipe so far: shown in full, not cut to two lines. */
+.exp-stage .row-text {
+  display: block;
+  overflow: visible;
+}
+
+.exp-stage > .hint {
+  padding: 8px 12px 12px;
+}
+
+.exp-stage-number {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.exp-stage.is-current .exp-stage-number {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface);
+}
+
+.exp-stage.is-done .exp-stage-number {
+  border-color: var(--ink-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-stage > summary::after {
+    transition: none;
+  }
+}
+
+.exp-step {
+  display: grid;
+  gap: 12px;
+}
+
+.exp-howto {
+  padding-left: 20px;
+  display: grid;
+  gap: 4px;
+  font-size: var(--text-sm);
+}
+
+.exp-grams {
+  flex: none;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.exp-refill {
+  display: grid;
+  gap: 8px;
+}
+
+.exp-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.exp-inline .select {
+  flex: 1 1 180px;
+}
+
+.input-unit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-unit .input {
+  width: 96px;
+  text-align: right;
+}
+
+.input-unit span {
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+}
+
